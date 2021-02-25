@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-    str := []byte("apple")
+    str := []rune("apple你好")
     str2 := string(reverse(str))
     fmt.Printf("before: %+v\n",string(str))
     fmt.Printf("after : %+v\n",str2)
@@ -13,8 +13,8 @@ func main() {
 }
 
 // reverse a string
-func reverse(str []byte) []byte  {
-    var returnArr  []byte
+func reverse(str []rune) []rune  {
+    var returnArr  []rune
     for i := len(str)-1;i>=0;i-- {
         returnArr = append(returnArr, str[i])
     }

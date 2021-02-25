@@ -11,3 +11,6 @@ test('Reverse reverses a string', () => {
 test('Reverse reverses a string', () => {
   expect(reverse('  abcd')).toEqual('dcba  ');
 });
+test('Reverse reverses a chinese string', () => {
+  expect(reverse('你好')).toEqual('好你');
+});
