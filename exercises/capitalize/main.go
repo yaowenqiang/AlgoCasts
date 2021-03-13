@@ -2,11 +2,13 @@ package main
 
 import (
     "strings"
+    "unicode"
     "fmt"
 )
 
 func main() {
-    fmt.Println(capitalize("hello world 你好    你也好"))
+    //fmt.Println(capitalize("hello world 你好    你也好"))
+    capitalize2("hello world　你好")
 }
 
 func capitalize(s string) string {
@@ -18,4 +20,13 @@ func capitalize(s string) string {
     }
 
     return strings.Join(words, " ")
+}
+
+func capitalize2(s string) string {
+    for i, k :=  range s {
+        if i == 0 || (s[i-1] == ' ' ){
+            s = s[:i] + string((unicode.ToUpper(k))) + s[i+1:]
+        }
+    }
+    return s
 }
