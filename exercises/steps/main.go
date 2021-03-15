@@ -6,7 +6,8 @@ import (
 
 func main() {
     //step(10)
-    fmt.Println(stepv2(10))
+    //fmt.Println(stepv2(10))
+    fmt.Println(stepv3(10))
 }
 
 
@@ -40,4 +41,19 @@ func rp(s string, count int) {
     for i := 0; i < count; i++  {
         fmt.Printf("%s", s)
     }
+}
+
+func stepv3(s int) string {
+    var matrix []byte
+    for i := 0; i < s; i++ {
+        for j := 0; j <= s*2-2; j++ {
+            if (j < s-i-1 || j > s + i-1) {
+                matrix = append(matrix,'-')
+            } else {
+                matrix = append(matrix,'#')
+            }
+        }
+        matrix = append(matrix,'\n')
+    }
+    return string(matrix)
 }
