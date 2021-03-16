@@ -43,6 +43,8 @@ func rp(s string, count int) {
     }
 }
 
+
+//Print a pyramid(金字塔)
 func stepv3(s int) string {
     var matrix []byte
     for i := 0; i < s; i++ {
