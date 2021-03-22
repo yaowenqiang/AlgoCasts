@@ -133,6 +133,34 @@ func (ls *LinkedList)RemoveAt(index int) {
     }
 }
 
+func (ls *LinkedList)InsertAt(index int, data string) {
+    if (ls.head == nil ) {
+        ls.head = NewNode(data)
+        return
+    } else {
+        if index == 0 {
+            if ls.head.next == nil {
+                newNode := NewNode(data)
+                newNode.next = ls.head
+                ls.head = newNode
+            } else {
+                newNode := NewNode(data)
+                newNode.next = ls.head
+                ls.head = newNode
+            }
+        } else {
+            indexNode := ls.GetAt(index-1)
+            if indexNode != nil && indexNode.next != nil {
+                newNode := NewNode(data)
+                newNode.next = indexNode.next
+                indexNode.next = newNode
+            } else {
+                ls.InsertLast(data)
+            }
+        }
+    }
+}
+
 func (ls *LinkedList)Clear() {
     current  := ls.head
     ls.head = nil
@@ -209,6 +237,14 @@ func main() {
     fmt.Println(ls.head)
     fmt.Println(ls.head.next)
     fmt.Println(ls.head.next.next)
+    ls.Clear()
+    ls.InsertAt(0, "index 0")
+    ls.InsertAt(1, "index 1")
+    ls.InsertAt(2, "index 2")
+    ls.InsertAt(3, "index 3")
+    ls.InsertAt(100, "index 100")
+    fmt.Printf("%+v", ls.head)
+    fmt.Printf("%+v", ls.head.next)
 
 }
 
