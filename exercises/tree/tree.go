@@ -43,13 +43,20 @@ func(n *Node)Remove(data int) {
 }
 
 type Tree struct {
-
+    root *Node
 }
 
+func (t *Tree) traverseBF() {
+}
 
 func MakeNode(data int) *Node {
     return &Node{
         data: data,
+    }
+}
+
+func MakeTree() *Tree {
+    return &Tree{
     }
 }
 
@@ -70,6 +77,13 @@ func main() {
     n.Add(7)
     n.Add(8)
     fmt.Printf("%+v\n", n.children)
+
+
+    tree := MakeTree()
+    tree.root = n
+
+    fmt.Println(tree)
+
 
 }
 
