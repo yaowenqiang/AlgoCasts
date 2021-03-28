@@ -46,7 +46,22 @@ type Tree struct {
     root *Node
 }
 
-func (t *Tree) traverseBF() {
+func (t *Tree) traverseBF(fn func(*Node)) {
+    arr := []*Node{t.root}
+    for {
+        if len(arr) == 0 {
+            break
+        }
+
+        node := arr[0]
+        arr = arr[1:]
+        arr = append(arr, node.children...)
+        fn(node)
+    }
+}
+
+func updateNode(n *Node) {
+    n.data*= 2
 }
 
 func MakeNode(data int) *Node {
@@ -82,6 +97,9 @@ func main() {
     tree := MakeTree()
     tree.root = n
 
+    fmt.Println(tree)
+
+    tree.traverseBF(updateNode)
     fmt.Println(tree)
 
 
