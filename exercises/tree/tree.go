@@ -60,6 +60,22 @@ func (t *Tree) traverseBF(fn func(*Node)) {
     }
 }
 
+func (t *Tree) traverseDF(fn func(*Node)) {
+    arr := []*Node{t.root}
+    for {
+        if len(arr) == 0 {
+            break
+        }
+
+        node := arr[0]
+        arr = arr[1:]
+        for _, i := range node.children {
+            arr = append([]*Node{i}, arr...)
+        }
+        fn(node)
+    }
+}
+
 func updateNode(n *Node) {
     n.data*= 2
 }
@@ -102,6 +118,8 @@ func main() {
     tree.traverseBF(updateNode)
     fmt.Println(tree)
 
+    tree.traverseDF(updateNode)
+    fmt.Println(tree)
 
 }
 
