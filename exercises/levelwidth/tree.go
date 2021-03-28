@@ -6,6 +6,7 @@ import (
 
 type Node struct {
     data int
+    isnil bool
     children []*Node
 }
 
@@ -83,7 +84,7 @@ func(t *Tree)LevelWidth() []int {
         return []int{}
     }
     counter := []int{0}
-    arr := []*Node{root, MakeNode(-1)}
+    arr := []*Node{root, MakeNilNode()}
     for {
         if len(arr) <=1 {
             break
@@ -91,7 +92,7 @@ func(t *Tree)LevelWidth() []int {
 
         node := arr[0]
         arr = arr[1:]
-        if node.data == -1 {
+        if node.isnil == true {
             counter = append(counter, 0)
             arr = append(arr, node)
         } else {
@@ -111,6 +112,12 @@ func updateNode(n *Node) {
 func MakeNode(data int) *Node {
     return &Node{
         data: data,
+    }
+}
+
+func MakeNilNode() *Node {
+    return &Node{
+        isnil: true,
     }
 }
 
