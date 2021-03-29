@@ -37,6 +37,33 @@ func makeNode(data int) *Node {
     }
 }
 
+func (n *Node)Contains(data int) bool {
+    if n.data < data {
+        if n.right != nil  {
+            return n.right.Contains(data)
+        } else {
+            return false
+        }
+    } else if n.data > data {
+        if n.left != nil {
+        return n.left.Contains(data)
+        } else {
+            return false
+        }
+    } else {
+        return true
+    }
+}
+
+
+func (t *BST)Contains(data int) bool {
+    root := t.root
+    if root == nil  {
+        return false
+    } else {
+        return root.Contains(data)
+    }
+}
 
 func makeBST() *BST {
     return &BST{
@@ -56,4 +83,7 @@ func main() {
     n.Insert(100)
     tree.root = n
     fmt.Println(tree)
+    fmt.Println(tree.Contains(1))
+    fmt.Println(tree.Contains(10))
+    fmt.Println(tree.Contains(11))
 }
