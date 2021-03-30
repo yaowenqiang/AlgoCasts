@@ -8,6 +8,7 @@ type Node struct {
     data int
     left *Node
     right *Node
+    isNil bool
 }
 
 type BST struct {
@@ -36,6 +37,11 @@ func makeNode(data int) *Node {
         data: data,
     }
 }
+func makeNilNode() *Node {
+    return &Node{
+        isNil: true,
+    }
+}
 
 func (n *Node)Contains(data int) bool {
     if n.data < data {
@@ -55,6 +61,28 @@ func (n *Node)Contains(data int) bool {
     }
 }
 
+func (n *Node)Validate(min *Node, max *Node) bool {
+    if max.isNil == false && n.data > max.data {
+        return false
+    }
+
+    if min.isNil == false && n.data < min.data {
+        return false
+    }
+
+    if n.left != nil  && n.left.Validate(min, n)  ==  false {
+        return false
+    }
+
+    if n.right != nil  && n.right.Validate(n, max)  ==  false {
+        return false
+    }
+
+    return true
+
+
+}
+
 
 func (t *BST)Contains(data int) bool {
     root := t.root
@@ -64,6 +92,17 @@ func (t *BST)Contains(data int) bool {
         return root.Contains(data)
     }
 }
+
+func (t *BST)Validate() bool {
+    root := t.root
+    if root == nil {
+        return true
+    }
+    min := makeNilNode()
+    max := makeNilNode()
+    return root.Validate(min, max)
+}
+
 
 func makeBST() *BST {
     return &BST{
@@ -86,4 +125,11 @@ func main() {
     fmt.Println(tree.Contains(1))
     fmt.Println(tree.Contains(10))
     fmt.Println(tree.Contains(11))
+
+
+    newTree := makeBST()
+    newNode := makeNode(0)
+    newNode.left = makeNode(11)
+    newTree.root = newNode
+    println(newTree.Validate())
 }
