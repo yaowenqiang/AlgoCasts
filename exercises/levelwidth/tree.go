@@ -6,6 +6,7 @@ import (
 
 type Node struct {
     data int
+    isnil bool
     children []*Node
 }
 
@@ -13,6 +14,7 @@ func(n *Node)Add(data int) {
     node := MakeNode(data)
     n.children = append(n.children, node)
 }
+
 
 /*
 func(n *Node)Remove(data int) {
@@ -76,6 +78,33 @@ func (t *Tree) traverseDF(fn func(*Node)) {
     }
 }
 
+func(t *Tree)LevelWidth() []int {
+    root := t.root
+    if root == nil {
+        return []int{}
+    }
+    counter := []int{0}
+    arr := []*Node{root, MakeNilNode()}
+    for {
+        if len(arr) <=1 {
+            break
+        }
+
+        node := arr[0]
+        arr = arr[1:]
+        if node.isnil == true {
+            counter = append(counter, 0)
+            arr = append(arr, node)
+        } else {
+            arr = append(arr ,node.children...)
+            counter[len(counter)-1]++
+        }
+
+    }
+    return counter
+
+}
+
 func updateNode(n *Node) {
     n.data*= 2
 }
@@ -83,6 +112,12 @@ func updateNode(n *Node) {
 func MakeNode(data int) *Node {
     return &Node{
         data: data,
+    }
+}
+
+func MakeNilNode() *Node {
+    return &Node{
+        isnil: true,
     }
 }
 
@@ -101,12 +136,18 @@ func main() {
     n.Add(3)
     n.Add(3)
     n.Add(4)
+    n.children[1].Add(2)
+    n.children[1].Add(2)
+    n.children[1].Add(2)
     fmt.Printf("%+v\n", n.children)
     n.Remove(3)
     n.Add(5)
     n.Add(6)
     n.Add(7)
     n.Add(8)
+    n.children[1].Add(2)
+    n.children[1].Add(2)
+    n.children[1].Add(2)
     fmt.Printf("%+v\n", n.children)
 
 
@@ -120,6 +161,11 @@ func main() {
 
     tree.traverseDF(updateNode)
     fmt.Println(tree)
+
+    fmt.Println(tree.LevelWidth())
+
+    b := MakeTree()
+    fmt.Println(b.LevelWidth())
 
 }
 
