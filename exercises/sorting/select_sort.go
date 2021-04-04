@@ -19,7 +19,7 @@ func selectSort (arr []int) []int {
         }
         if minIndex != i {
             tmp := arr[i]
-            arr[i] = arr[minIndex]
+            arr[i], arr[minIndex] = arr[minIndex], arr[i]
             arr[minIndex] = tmp
         }
     }
